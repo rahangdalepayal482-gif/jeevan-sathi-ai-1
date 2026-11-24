@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "JEEVAN SAATHI AI"
+description = "A multilingual support and guidance app for students, job seekers, women, senior citizens, and the general public, with AI chat, scheme discovery, career guidance, and study planning."
+version = "1.0.0"
+id = "artifacts/jeevan-saathi-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24674
+
+[services.development]
+run = "pnpm --filter @workspace/jeevan-saathi-ai run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/jeevan-saathi-ai", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/jeevan-saathi-ai/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24674"
+BASE_PATH = "/"
